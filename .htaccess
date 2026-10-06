@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews -Indexes
+    RewriteEngine On
+
+    # Jika hosting tidak bisa diarahkan langsung ke folder /public,
+    # teruskan semua request ke /public hanya sekali.
+    RewriteRule ^$ public/index.php [L]
+    RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+</IfModule>
+
+# Blokir akses ke file environment dan file tersembunyi.
+<Files .env>
+    Require all denied
+</Files>
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
